@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 
 # setting
-browser_cmd = 'firefox'
-clipboard_cmd = 'xclip'
+browser = 'firefox'
 proxy_addr = nil
 proxy_port = nil
 
@@ -29,17 +28,17 @@ imagedata = Base64.encode64(File.read(tmpfile))
 File.delete(tmpfile)
 
 HOST = 'api.imgur.com'
+API_KEY = 'YOUR_API_KEY'
 
 Net::HTTP::Proxy(proxy_addr, proxy_port).start(HOST,80) {|http|
 	res = Net::HTTP.post_form(URI.parse('http://api.imgur.com/2/upload'),
-		{'image' => imagedata, 'key' => '94ba67d34a5f03445ee8f06aa9844c3e'})
+		{'image' => imagedata, 'key' => API_KEY})
 	xml_data = res.body
 	doc = REXML::Document.new(xml_data)
-	doc.elements.each('upload/links/original') do |ele|
-		url = ele.text
+	doc.elements.each('upload/links/original') do |element|
+		url = element.text
 		puts url
-		system "echo -n #{url} | #{clipboard_cmd}"
-		system "#{browser_cmd} #{url}"
+		system "#{browser} #{url}"
 	end
 
 }
