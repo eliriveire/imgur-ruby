@@ -1,45 +1,42 @@
-#!/usr/bin/env ruby
-
 # setting
-browser = 'firefox'
-proxy_addr = nil
-proxy_port = nil
-
 require 'net/http'
 require 'uri'
 require 'base64'
 require 'rexml/document'
 
-# capture png file
-tmpfile = "/tmp/image_upload#{$$}.png"
-imagefile = ARGV[0]
+proxy_addr = nil
+proxy_port = nil
 
-if imagefile && File.exist?(imagefile) then
-  system "convert #{imagefile} #{tmpfile}"
-else
-  system "import #{tmpfile}"
+# Setting up variables
+imagedata = nil
+# Getting file from form
+tmpfile = params[:file]
+# Getting file name
+name = tmpfile.original_filename
+# Temporary upload path
+directory = "public/images/upload"
+path = File.join(directory, name)
+# Read binary and Base64 Encode
+File.open(tmpfile.tempfile.path, "rb") do |file|
+  imagedata = Base64.encode64 file.read
 end
 
-if !File.exist?(tmpfile) then
-  exit
-end
+host = 'api.imgur.com'
+api_key = 'YOUR_API_KEY'
 
-imagedata = Base64.encode64(File.read(tmpfile))
-File.delete(tmpfile)
+Net::HTTP::Proxy(proxy_addr, proxy_port).start(host,80) {|http|
+  res = Net::HTTP.post_form(URI.parse('http://api.imgur.com/2/upload'), {'image' => imagedata, 'key' => api_key})
+  xml_data = res.body
+  doc = REXML::Document.new(xml_data)
+  doc.elements.each('upload/links/original') do |element|
+    @url = element.text
+    respond_to do |format|
+      if @url
+        format.js
+      else
+      	format.js
+      end
+    end
 
-HOST = 'api.imgur.com'
-API_KEY = 'YOUR_API_KEY'
-
-Net::HTTP::Proxy(proxy_addr, proxy_port).start(HOST,80) {|http|
-	res = Net::HTTP.post_form(URI.parse('http://api.imgur.com/2/upload'),
-		{'image' => imagedata, 'key' => API_KEY})
-	xml_data = res.body
-	doc = REXML::Document.new(xml_data)
-	doc.elements.each('upload/links/original') do |element|
-		url = element.text
-		puts url
-		system "#{browser} #{url}"
-	end
-
+  end
 }
-
