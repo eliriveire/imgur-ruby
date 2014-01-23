@@ -9,13 +9,17 @@ proxy_port = nil
 
 # Setting up variables
 imagedata = nil
+
 # Getting file from form
 tmpfile = params[:file]
+
 # Getting file name
 name = tmpfile.original_filename
+
 # Temporary upload path
 directory = "public/images/upload"
 path = File.join(directory, name)
+
 # Read binary and Base64 Encode
 File.open(tmpfile.tempfile.path, "rb") do |file|
   imagedata = Base64.encode64 file.read
@@ -34,7 +38,7 @@ Net::HTTP::Proxy(proxy_addr, proxy_port).start(host,80) {|http|
       if @url
         format.js
       else
-      	format.js
+        format.js
       end
     end
 
