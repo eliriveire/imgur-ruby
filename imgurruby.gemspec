@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Asitha de Silva"]
   spec.email         = ["asithade@gmail.com"]
   spec.summary       = %q{Imgur image uploader via Imgur API}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/asithade/imgur-ruby"
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
@@ -18,8 +18,4 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake"
-  spec.add_runtime_dependency "net/http"
-  spec.add_runtime_dependency "uri"
-  spec.add_runtime_dependency "base64"
-  spec.add_runtime_dependency "rexml/document"
 end
