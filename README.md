@@ -1,19 +1,29 @@
-#imgur-ruby
+# Imgurruby
 
-Originally based on the ruby version of [cubeee's imgur-ruby.](https://github.com/cubeee/imgur-ruby)
+TODO: Write a gem description
 
-Upload images to imgur through Rails or Ruby. 
+## Installation
 
-#### Ruby code
-Change line *29* to your API Key obtained from [Imgur API](https://api.imgur.com)
-```ruby
-api_key = 'YOUR_API_KEY'
-```
+Add this line to your application's Gemfile:
 
-####HTML Code
-```html
-<form action='/path/to/imgur.rb' enctype='multipart/form-data' method='post' >
-	<input type='file' name='file' id='file'>
-	<input type='submit' value='Upload'>
-</form>
-```
+    gem 'imgurruby'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install imgurruby
+
+## Usage
+
+TODO: Write usage instructions here
+
+## Contributing
+
+1. Fork it ( http://github.com/<my-github-username>/imgurruby/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
