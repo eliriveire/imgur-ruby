@@ -4,9 +4,13 @@ Based on [Cubee's imgur-ruby](https://github.com/cubeee/imgur-ruby) script.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your application's Gemfile
 
-    gem 'imgurruby', :git => 'https://github.com/asithade/imgur-ruby'
+    gem "imgurruby", "~> 0.0.2"
+
+For the latest version:
+
+    gem "imgurruby", :git => 'https://github.com/asithade/imgur-ruby'
 
 And then execute:
 
