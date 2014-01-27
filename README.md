@@ -1,16 +1,16 @@
-# Imgurruby
+# Imgur Ruby
 
-TODO: Write a gem description
+Based on [Cubee's imgur-ruby](https://github.com/cubeee/imgur-ruby) script.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'imgurruby'
+    gem 'imgurruby', :git => 'https://github.com/asithade/imgur-ruby'
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
@@ -18,9 +18,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    @image = Imgurruby::Imgur.new('YOUR_API_KEY')
+    @image.upload(params[:file])
+    
+You can then access the url/error by calling
+
+    @image.url
+    
 
 ## Contributing
+
+I'm quite a newbie with Ruby, so feel free to add your own insight! 
 
 1. Fork it ( http://github.com/<my-github-username>/imgurruby/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
