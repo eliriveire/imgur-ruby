@@ -46,7 +46,11 @@ module Imgurruby
 
 		# Return msg or url
 		def url
-			if @msg ? @msg : @url
+			if @msg
+				@msg
+			else
+				@url
+			end
 		end
 	end
 end
