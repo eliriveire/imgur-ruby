@@ -6,7 +6,7 @@ Based on [Cubee's imgur-ruby](https://github.com/cubeee/imgur-ruby) script.
 
 Add this line to your application's Gemfile
 
-    gem "imgurruby", "~> 0.0.2"
+    gem "imgurruby", "~> 0.0.3"
 
 For the latest version:
 
