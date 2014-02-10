@@ -2,7 +2,7 @@ require "imgurruby/version"
 require 'net/http'
 require 'uri'
 require 'base64'
-require 'nokogiri'
+require 'json'
 
 module Imgurruby
 	attr_accessor :api_key, :host, :proxy_addr, :proxy_port, :url, :msg
@@ -32,25 +32,20 @@ module Imgurruby
 
 			# Begin file upload
 			Net::HTTP::Proxy(@proxy_addr, @proxy_port).start(@host,80) {|http|
-				res = Net::HTTP.post_form(URI.parse('http://api.imgur.com/2/upload'), {'image' => imagedata, 'key' => @api_key})
-				xml_data = res.body
-				doc = Nokogiri::XML(xml_data)
-				doc.elements.each('*/message') do |element|
-					@msg = element.text
-				end			
-				doc.elements.each('upload/links/original') do |element|
-					@url = element.text
+				res = Net::HTTP.post_form(URI.parse('http://api.imgur.com/2/upload.json'), {'image' => imagedata, 'key' => @api_key})
+				json_data = res.body
+				@result = JSON.parse(json_data)
+				if @result["error"].nil?
+					@msg = @result["upload"]["links"]["original"]
+				else
+					@msg = @result["error"]["message"]
 				end
 			}
 		end
 
 		# Return msg or url
 		def url
-			if @msg
-				@msg
-			else
-				@url
-			end
+			@msg
 		end
 	end
 end
