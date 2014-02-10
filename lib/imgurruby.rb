@@ -2,7 +2,7 @@ require "imgurruby/version"
 require 'net/http'
 require 'uri'
 require 'base64'
-require 'rexml/document'
+require 'nokogiri'
 
 module Imgurruby
 	attr_accessor :api_key, :host, :proxy_addr, :proxy_port, :url, :msg
@@ -34,7 +34,7 @@ module Imgurruby
 			Net::HTTP::Proxy(@proxy_addr, @proxy_port).start(@host,80) {|http|
 				res = Net::HTTP.post_form(URI.parse('http://api.imgur.com/2/upload'), {'image' => imagedata, 'key' => @api_key})
 				xml_data = res.body
-				doc = REXML::Document.new(xml_data)
+				doc = Nokogiri::XML(xml_data)
 				doc.elements.each('*/message') do |element|
 					@msg = element.text
 				end			
